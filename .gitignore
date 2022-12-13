@@ -1,3 +1,9 @@
+# vscode configs
+.vscode
+
+# Large TSV files of datasets
+app/data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
