@@ -4,18 +4,12 @@ Trabalho da disciplina Banco de Dados usando **python 3.8**
 
 ## Setup
 
-Crie o ambiente virtual com venv:
 ```shell
+    # Crie o ambiente virtual com venv:
 $ python3 -m venv .venv
-```
-
-Ative o ambiente (no Linux) com:
-```shell
+    # Ative o ambiente (no Linux) com:
 $ source .venv/bin/activate
-```
-
-Instale as bibliotecas com:
-```shell
+    # Instale as bibliotecas com:
 (.venv) $ pip install -r requirements.txt
 ```
 
@@ -23,6 +17,11 @@ Instale as bibliotecas com:
 
 Inicie a execução com:
 ```shell
-(.venv) $ flask [--app app] run [--debug]
+(.venv) $ flask run [--debug]
 ```
-A flag `--app` é para indicar qual arquivo está a aplicação Flask, que é opcional caso o arquivo já se chame `app`
+
+## Tabelas
+
+As tabelas usadas serão do [imdb dataset](https://www.imdb.com/interfaces/), salvas e descompactadas em [`app/data/`](app/data/).
+
+![diagrama de tabelas](img/diagrama.png)
