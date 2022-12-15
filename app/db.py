@@ -12,7 +12,7 @@ db = SQLAlchemy()
 
 def init_db(app: Flask):
     with app.app_context():
-        app.config["SQLALCHEMY_DATABASE_URI"] = SQLITE_FILE_PATH
+        app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/mydb"
         db.init_app(app)
 
 # TODO function

@@ -15,10 +15,17 @@ def create_app() -> Flask:
     # Setup database
     init_db(app)
 
+    # db.drop_all()
+    # db.create_all()
+    
+    # # load_tsv_into_db()
+    # db.session.commit()
+
     @app.before_first_request
     def restart_db():
         db.drop_all()
         db.create_all()
+        
         # load_tsv_into_db()
         db.session.commit()
 
