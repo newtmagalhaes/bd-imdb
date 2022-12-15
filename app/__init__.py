@@ -1,34 +1,32 @@
-from os import listdir
-from os.path import isfile, join
+from flask import Flask
+from werkzeug.exceptions import HTTPException
 
-import pandas as pd
-from flask import Flask, render_template
-
-from .db import BASE_DIR, db, init_db
+from .db import db, init_db, load_tsv_into_db
+from .routes import blueprint
 
 
 def create_app() -> Flask:
     """Fabrica de Aplicação Flask"""
     app = Flask(__name__)
 
+    # Setup api endpoints
+    app.register_blueprint(blueprint)
+
     # Setup database
     init_db(app)
 
-    @app.route('/')
-    def index():
-        return render_template('base.html')
-    
-    @app.cli.command('create_db')
-    def create_db():
+    @app.before_first_request
+    def restart_db():
         db.drop_all()
-        # db.create_all()
-
-        file_names = [f for f in listdir('./data/') if isfile(join(BASE_DIR, f))]
-        table_names = range(len(file_names)) # mudar para nome dos models
-        for table, file in zip(table_names, file_names):
-            pd.read_table(f'./data/{file}') \
-                .to_sql(name=table, con=db.engine, if_exists='replace')
-
+        db.create_all()
+        # load_tsv_into_db()
         db.session.commit()
 
+    # Global Exception Error
+    @app.errorhandler(Exception)
+    def handle_exception(error) -> 'tuple[dict[str, dict[str, str]], int]':
+        print(error)
+        status_code = error.code if isinstance(error, HTTPException) else 200
+        return {'error': {'message': str(error)}}, status_code
+    
     return app

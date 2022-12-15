@@ -2,7 +2,10 @@
 .vscode
 
 # Large TSV files of datasets
-app/data/
+app/datasets/
+
+# SQLite db file
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
